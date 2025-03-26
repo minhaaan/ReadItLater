@@ -49,6 +49,18 @@ struct MainInputView: View {
   var body: some View {
     WithPerceptionTracking {
       HStack {
+        Button(action: {
+          let pasteboard = UIPasteboard.general
+          let pastedString = pasteboard.string ?? ""
+          store.send(.textFieldChanged(pastedString))
+        }) {
+          Image(systemName: "document.on.clipboard.fill")
+            .padding(12)
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+        }
+        
         TextEditor(text: $store.text.sending(\.textFieldChanged))
           .padding(.horizontal, 8)
           .padding(.vertical, 4)
