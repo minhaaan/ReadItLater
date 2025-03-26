@@ -16,6 +16,7 @@ struct MainInput {
   struct State: Equatable {
     var text: String = ""
     var writeButtonIsHidden: Bool = true
+    var writeButtonDisabled: Bool = false
   }
   
   enum Action {
@@ -28,6 +29,8 @@ struct MainInput {
       switch action {
       case .textFieldChanged(let text):
         state.text = text
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        state.writeButtonDisabled = trimmed.isEmpty
         withAnimation {
           state.writeButtonIsHidden = text.isEmpty
         }
@@ -67,13 +70,14 @@ struct MainInputView: View {
             Image(systemName: "checkmark.circle.fill")
               .font(.title)
               .padding(12)
-              .background(Color.blue)
+              .background(store.writeButtonDisabled ? Color.gray : Color.blue)
               .foregroundColor(.white)
               .clipShape(RoundedRectangle(cornerRadius: 12))
           }
           .padding(.leading, 8)
           .transition(.move(edge: .trailing).combined(with: .opacity))
           .animation(.easeInOut(duration: 0.3), value: store.writeButtonIsHidden)
+          .disabled(store.writeButtonDisabled)
         }
       } // HStack
       .padding(.horizontal, 20)
