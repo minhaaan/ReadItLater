@@ -7,7 +7,7 @@ let project = Project(
       name: "ReadItLater",
       destinations: .iOS,
       product: .app,
-      bundleId: "io.tuist.ReadItLater",
+      bundleId: "com.minan.ReadItLater",
       deploymentTargets: .iOS("15.0"),
       infoPlist: .extendingDefault(
         with: [
@@ -27,7 +27,7 @@ let project = Project(
       name: "ReadItLaterTests",
       destinations: .iOS,
       product: .unitTests,
-      bundleId: "io.tuist.ReadItLaterTests",
+      bundleId: "com.minan.ReadItLaterTests",
       deploymentTargets: .iOS("15.0"),
       infoPlist: .default,
       sources: ["ReadItLater/Tests/**"],
