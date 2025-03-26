@@ -18,7 +18,9 @@ let project = Project(
       ),
       sources: ["ReadItLater/Sources/**"],
       resources: ["ReadItLater/Resources/**"],
-      dependencies: []
+      dependencies: [
+        .external(name: "ComposableArchitecture")
+      ]
     ),
     .target(
       name: "ReadItLaterTests",
