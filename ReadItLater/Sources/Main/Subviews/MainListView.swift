@@ -14,18 +14,26 @@ struct MainList {
   
   @ObservableState
   struct State: Equatable {
-    var items: [String] = []
+    @Shared(.fileStorage(.texts)) var items: [String] = []
   }
   
   enum Action {
+    case insert(String)
     case delete(IndexSet)
   }
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
+      case let .insert(text):
+        state.$items.withLock {
+          $0.insert(text, at: 0)
+        }
+        return .none
       case let .delete(indexSet):
-        state.items.remove(atOffsets: indexSet)
+        state.$items.withLock {
+          $0.remove(atOffsets: indexSet)
+        }
         return .none
       }
     }
@@ -36,12 +44,14 @@ struct MainListView: View {
   @Perception.Bindable var store: StoreOf<MainList>
   
   var body: some View {
-    List {
-      ForEach(store.items, id: \.self) { item in
-        Text(item)
-      }
-      .onDelete { indexSet in
-        store.send(.delete(indexSet))
+    WithPerceptionTracking {
+      List {
+        ForEach(store.items, id: \.self) { item in
+          Text(item)
+        }
+        .onDelete { indexSet in
+          store.send(.delete(indexSet))
+        }
       }
     }
   }

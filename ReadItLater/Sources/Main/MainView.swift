@@ -43,10 +43,10 @@ struct MainFeature {
         return .none
         
       case let .save(text):
-        state.list.items.insert(text, at: 0)
-        state.input.text = ""
-        state.input.writeButtonIsHidden = true
-        return .none
+        return .merge(
+          .send(.list(.insert(text))),
+          .send(.input(.textFieldChanged("")))
+        )
         
       default:
         return .none
