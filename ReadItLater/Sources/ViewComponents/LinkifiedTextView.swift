@@ -16,26 +16,33 @@ struct LinkifiedTextView: View {
   var body: some View {
     let parts = parseTextWithLinks(from: text)
     
-    HStack(alignment: .firstTextBaseline, spacing: 0) {
-      ForEach(Array(parts.enumerated()), id: \.offset) { index, part in
-        switch part {
-        case .text(let string):
-          Text(string)
-        case .link(let string):
-          Button {
-            if let url = validatedURL(from: string) {
-              UIApplication.shared.open(url)
-            }
-          } label: {
+    VStack(alignment: .leading, spacing: 8) {
+      HStack(alignment: .firstTextBaseline, spacing: 0) {
+        ForEach(Array(parts.enumerated()), id: \.offset) { index, part in
+          switch part {
+          case .text(let string):
             Text(string)
-              .foregroundColor(.blue)
-              .underline()
+          case .link(let string):
+            Button {
+              if let url = validatedURL(from: string) {
+                UIApplication.shared.open(url)
+              }
+            } label: {
+              Text(string)
+                .foregroundColor(.blue)
+                .underline()
+            }
+            .buttonStyle(PressHighlightButtonStyle())
           }
-          .buttonStyle(PressHighlightButtonStyle())
         }
       }
-    }
-    .textSelection(.enabled)
+      .textSelection(.enabled)
+      
+      // 첫 번째 링크가 있는 경우에만 미리보기를 표시
+      if let url = firstValidURL(in: parts) {
+        LinkPreviewView(url: url)
+      }
+    } // VStack
   }
   
   // MARK: - Parsing
@@ -43,6 +50,17 @@ struct LinkifiedTextView: View {
   enum TextPart {
     case text(String)
     case link(String)
+  }
+  
+  /// 텍스트에서 첫 번째 유효한 URL을 반환
+  func firstValidURL(in parts: [TextPart]) -> URL? {
+    for part in parts {
+      if case let .link(string) = part,
+         let url = validatedURL(from: string) {
+        return url
+      }
+    }
+    return nil
   }
   
   func parseTextWithLinks(from text: String) -> [TextPart] {
@@ -77,6 +95,7 @@ struct LinkifiedTextView: View {
     return result
   }
   
+  /// URL이 유효한지 확인
   private func validatedURL(from string: String) -> URL? {
     let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
     guard let encoded = trimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
