@@ -47,7 +47,7 @@ struct MainListView: View {
     WithPerceptionTracking {
       List {
         ForEach(store.items, id: \.self) { item in
-          Text(item)
+          LinkifiedTextView(text: item)
         }
         .onDelete { indexSet in
           store.send(.delete(indexSet))
