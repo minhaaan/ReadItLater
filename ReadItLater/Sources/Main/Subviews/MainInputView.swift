@@ -49,19 +49,18 @@ struct MainInputView: View {
   var body: some View {
     WithPerceptionTracking {
       HStack {
-        TextField(
-          "입력",
-          text: $store.text.sending(\.textFieldChanged)
-        )
-        .padding(20)
-        .background(
-          RoundedRectangle(cornerRadius: 12)
-            .stroke(.black.opacity(0.4), lineWidth: 2)
-        )
-        .submitLabel(.done)
-        .onSubmit {
-          store.send(.save)
-        }
+        TextEditor(text: $store.text.sending(\.textFieldChanged))
+          .padding(.horizontal, 8)
+          .padding(.vertical, 4)
+          .fixedSize(horizontal: false, vertical: true)
+          .background(
+            RoundedRectangle(cornerRadius: 12)
+              .stroke(.black.opacity(0.4), lineWidth: 2)
+          )
+          .submitLabel(.done)
+          .onSubmit {
+            store.send(.save)
+          }
         
         if !store.writeButtonIsHidden {
           Button(action: {
