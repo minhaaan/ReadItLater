@@ -64,12 +64,12 @@ struct MainView: View {
   var body: some View {
     WithPerceptionTracking {
       VStack {
-        MainInputView(
-          store: store.scope(state: \.input, action: \.input)
-        )
-        
         MainListView(
           store: store.scope(state: \.list, action: \.list)
+        )
+        
+        MainInputView(
+          store: store.scope(state: \.input, action: \.input)
         )
       } // VStack
     }
