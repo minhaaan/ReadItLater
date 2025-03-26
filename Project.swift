@@ -20,7 +20,8 @@ let project = Project(
       sources: ["ReadItLater/Sources/**"],
       resources: ["ReadItLater/Resources/**"],
       dependencies: [
-        .external(name: "ComposableArchitecture")
+        .external(name: "ComposableArchitecture"),
+        .target(name: "ReadItLaterSharedExtension"),
       ]
     ),
     .target(
@@ -34,5 +35,30 @@ let project = Project(
       resources: [],
       dependencies: [.target(name: "ReadItLater")]
     ),
+    .target(
+      name: "ReadItLaterSharedExtension",
+      destinations: .iOS,
+      product: .appExtension,
+      bundleId: "com.minan.ReadItLater.sharedextension",
+      deploymentTargets: .iOS("15.0"),
+      infoPlist: .extendingDefault(
+        with: [
+          "CFBundleDisplayName": "ReadItLater",
+          "NSExtension": [
+            "NSExtensionPointIdentifier": "com.apple.share-services",
+            "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).ShareViewController",
+            "NSExtensionAttributes": [
+              "NSExtensionActivationRule": [
+                "NSExtensionActivationSupportsText": true,
+                "NSExtensionActivationSupportsWebURLWithMaxCount": 1
+              ]
+            ]
+          ]
+        ]
+      ),
+      sources: ["ReadItLater/SharedExtensionSources/**"],
+      resources: [],
+      dependencies: []
+    )
   ]
 )
