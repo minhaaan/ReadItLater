@@ -14,7 +14,7 @@ struct MainInput {
   
   @ObservableState
   struct State: Equatable {
-    var inputFieldText: String = ""
+    var text: String = ""
     var writeButtonIsHidden: Bool = true
   }
   
@@ -27,6 +27,7 @@ struct MainInput {
     Reduce { state, action in
       switch action {
       case .textFieldChanged(let text):
+        state.text = text
         withAnimation {
           state.writeButtonIsHidden = text.isEmpty
         }
@@ -47,7 +48,7 @@ struct MainInputView: View {
       HStack {
         TextField(
           "입력",
-          text: $store.inputFieldText.sending(\.textFieldChanged)
+          text: $store.text.sending(\.textFieldChanged)
         )
         .padding(20)
         .background(
