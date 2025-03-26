@@ -8,6 +8,7 @@ let project = Project(
       destinations: .iOS,
       product: .app,
       bundleId: "io.tuist.ReadItLater",
+      deploymentTargets: .iOS("15.0"),
       infoPlist: .extendingDefault(
         with: [
           "UILaunchScreen": [
@@ -27,6 +28,7 @@ let project = Project(
       destinations: .iOS,
       product: .unitTests,
       bundleId: "io.tuist.ReadItLaterTests",
+      deploymentTargets: .iOS("15.0"),
       infoPlist: .default,
       sources: ["ReadItLater/Tests/**"],
       resources: [],
