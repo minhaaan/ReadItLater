@@ -58,7 +58,12 @@ let project = Project(
       ),
       sources: ["SharedExtensionSources/**"],
       resources: [],
-      dependencies: []
+      dependencies: [
+        .project(
+          target: "ReadItLaterStorage",
+          path: .relativeToCurrentFile("../Core/ReadItLaterStorage")
+        )
+      ]
     )
   ]
 )
