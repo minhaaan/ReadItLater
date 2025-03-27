@@ -12,8 +12,8 @@
 	"argv": [
 		"/opt/homebrew/bin/xcode-build-server"
 	],
-	"workspace": "/Users/minan/Desktop/my/ReadItLater/ReadItLater.xcworkspace",
-	"build_root": "/Users/minan/Library/Developer/Xcode/DerivedData/ReadItLater-dwmxajyzuvoztxctguoqnrarekbw",
-	"scheme": "ReadItLater-Workspace",
+	"workspace": "/Users/minan/Desktop/my/ReadItLater/Workspace.xcworkspace",
+	"build_root": "/Users/minan/Library/Developer/Xcode/DerivedData/Workspace-fymrgzcevtjpvydgwfhzkmkgjczs",
+	"scheme": "Workspace-Workspace",
 	"kind": "xcode"
 }
