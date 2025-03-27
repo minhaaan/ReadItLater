@@ -8,7 +8,7 @@ let project = Project(
     .target(
       name: "ReadItLaterStorage",
       destinations: .iOS,
-      product: .framework,
+      product: .staticFramework,
       bundleId: "com.minan.ReadItLaterStorage",
       deploymentTargets: .iOS("15.0"),
       infoPlist: .default,
