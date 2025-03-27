@@ -1,5 +1,5 @@
-import SwiftUI
 import ComposableArchitecture
+import SwiftUI
 
 @main
 struct ReadItLaterApp: App {

@@ -34,6 +34,6 @@ let project = Project(
         base: ["DEVELOPMENT_TEAM": teamId],
         defaultSettings: .recommended
       )
-    )
+    ),
   ]
 )

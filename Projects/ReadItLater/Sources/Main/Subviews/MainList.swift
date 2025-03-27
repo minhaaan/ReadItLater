@@ -1,11 +1,10 @@
-import Foundation
 import ComposableArchitecture
+import Foundation
 import Perception
 import ReadItLaterStorage
 
 @Reducer
 struct MainList {
-  
   @ObservableState
   struct State: Equatable {
     var items: [SharedItem] = []

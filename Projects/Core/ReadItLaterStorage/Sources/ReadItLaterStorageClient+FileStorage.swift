@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - ReadItLaterStorageClient + FileStorage
+
 extension ReadItLaterStorageClient {
   static func fileStorage(at url: URL = Self.storageURL) -> Self {
     return ReadItLaterStorageClient(
@@ -28,7 +29,7 @@ extension ReadItLaterStorageClient {
         try saveItems(items, to: url)
       },
       loadAll: {
-        return try loadItems(from: url).sorted { $0.date > $1.date }
+        try loadItems(from: url).sorted { $0.date > $1.date }
       },
       clear: {
         try? FileManager.default.removeItem(at: url)
@@ -59,5 +60,4 @@ private extension ReadItLaterStorageClient {
     let data = try JSONEncoder().encode(items)
     try data.write(to: url, options: .atomic)
   }
-  
 }

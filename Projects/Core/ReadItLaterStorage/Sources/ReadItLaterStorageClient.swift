@@ -5,8 +5,8 @@
 //  Created by 최민한 on 3/27/25.
 //
 
-import Foundation
 import Dependencies
+import Foundation
 
 public struct ReadItLaterStorageClient {
   public var save: (SharedItem) async throws -> Void
@@ -30,11 +30,9 @@ extension ReadItLaterStorageClient: DependencyKey {
   }
 }
 
-extension DependencyValues {
-  public var readItLaterStorage: ReadItLaterStorageClient {
+public extension DependencyValues {
+  var readItLaterStorage: ReadItLaterStorageClient {
     get { self[ReadItLaterStorageClient.self] }
     set { self[ReadItLaterStorageClient.self] = newValue }
   }
 }
-
-

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Constants {
+enum Constants {
   static let appGroupIdentifier = "group.com.minan.readitlater"
 }

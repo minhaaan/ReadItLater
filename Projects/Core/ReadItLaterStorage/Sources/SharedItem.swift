@@ -14,10 +14,8 @@ public struct SharedItem: Codable, Equatable, Identifiable {
   public let date: Date
   
   public init(text: String, date: Date = Date()) {
-    self.id = UUID()
+    id = UUID()
     self.text = text
     self.date = date
   }
 }
-
-

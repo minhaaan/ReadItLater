@@ -1,10 +1,9 @@
-import Foundation
 import ComposableArchitecture
+import Foundation
 import Perception
 
 @Reducer
 struct Main {
-  
   @ObservableState
   struct State: Equatable {
     var input = MainInput.State()
@@ -46,5 +45,4 @@ struct Main {
       }
     }
   }
-  
 }

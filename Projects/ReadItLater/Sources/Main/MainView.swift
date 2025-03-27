@@ -5,9 +5,9 @@
 //  Created by 최민한 on 3/27/25.
 //
 
-import SwiftUI
-import Perception
 import ComposableArchitecture
+import Perception
+import SwiftUI
 
 struct MainView: View {
   @Perception.Bindable var store: StoreOf<Main>
@@ -25,7 +25,6 @@ struct MainView: View {
       } // VStack
     }
   }
-  
 }
 
 #Preview {

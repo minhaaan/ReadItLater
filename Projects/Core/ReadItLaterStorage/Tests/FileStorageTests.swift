@@ -6,12 +6,11 @@
 //
 
 @testable import ReadItLaterStorage
+import Dependencies
 import Foundation
 import Testing
-import Dependencies
 
-class FileStorageTests{
-  
+class FileStorageTests {
   /// 테스트를 위한 디렉토리 경로
   static let testDirectory: URL = {
     let temp = FileManager.default.temporaryDirectory
@@ -89,5 +88,4 @@ class FileStorageTests{
     #expect(loadedItems.first == item1)
     #expect(loadedItems.last == item)
   }
-  
 }

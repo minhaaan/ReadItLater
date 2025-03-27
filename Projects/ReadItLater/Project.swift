@@ -60,10 +60,10 @@ let project = Project(
             "NSExtensionAttributes": [
               "NSExtensionActivationRule": [
                 "NSExtensionActivationSupportsText": true,
-                "NSExtensionActivationSupportsWebURLWithMaxCount": 1
-              ]
-            ]
-          ]
+                "NSExtensionActivationSupportsWebURLWithMaxCount": 1,
+              ],
+            ],
+          ],
         ]
       ),
       sources: ["SharedExtensionSources/**"],
@@ -73,12 +73,12 @@ let project = Project(
         .project(
           target: "ReadItLaterStorage",
           path: .relativeToCurrentFile("../Core/ReadItLaterStorage")
-        )
+        ),
       ],
       settings: .settings(
         base: ["DEVELOPMENT_TEAM": teamId],
         defaultSettings: .recommended
       )
-    )
+    ),
   ]
 )

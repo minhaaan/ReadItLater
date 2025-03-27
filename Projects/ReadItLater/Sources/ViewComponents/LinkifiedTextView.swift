@@ -10,7 +10,6 @@ import SwiftUI
 import SwiftUI
 
 struct LinkifiedTextView: View {
-  
   let text: String
   
   var body: some View {
@@ -18,11 +17,11 @@ struct LinkifiedTextView: View {
     
     VStack(alignment: .leading, spacing: 8) {
       HStack(alignment: .firstTextBaseline, spacing: 0) {
-        ForEach(Array(parts.enumerated()), id: \.offset) { index, part in
+        ForEach(Array(parts.enumerated()), id: \.offset) { _, part in
           switch part {
-          case .text(let string):
+          case let .text(string):
             Text(string)
-          case .link(let string):
+          case let .link(string):
             Button {
               if let url = validatedURL(from: string) {
                 UIApplication.shared.open(url)
@@ -56,7 +55,8 @@ struct LinkifiedTextView: View {
   func firstValidURL(in parts: [TextPart]) -> URL? {
     for part in parts {
       if case let .link(string) = part,
-         let url = validatedURL(from: string) {
+         let url = validatedURL(from: string)
+      {
         return url
       }
     }
@@ -80,7 +80,7 @@ struct LinkifiedTextView: View {
       let linkText = String(text[range])
       
       if currentIndex < range.lowerBound {
-        let normalText = String(text[currentIndex..<range.lowerBound])
+        let normalText = String(text[currentIndex ..< range.lowerBound])
         result.append(.text(normalText))
       }
       
@@ -100,14 +100,13 @@ struct LinkifiedTextView: View {
     let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
     guard let encoded = trimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
           let url = URL(string: encoded),
-          UIApplication.shared.canOpenURL(url) else {
+          UIApplication.shared.canOpenURL(url)
+    else {
       return nil
     }
     return url
   }
 }
-
-
 
 #Preview {
   VStack {

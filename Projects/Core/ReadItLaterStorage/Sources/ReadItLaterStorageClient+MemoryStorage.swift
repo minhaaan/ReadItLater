@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - ReadItLaterStorageClient + MemoryStorage
+
 extension ReadItLaterStorageClient {
   static func memoryStorage() -> Self {
     actor Memory {

@@ -5,9 +5,9 @@
 //  Created by 최민한 on 3/27/25.
 //
 
-import SwiftUI
-import Perception
 import ComposableArchitecture
+import Perception
+import SwiftUI
 
 struct MainInputView: View {
   @Perception.Bindable var store: StoreOf<MainInput>
@@ -60,9 +60,7 @@ struct MainInputView: View {
       .padding(.horizontal, 20)
     }
   }
-  
 }
-
 
 #Preview {
   MainInputView(

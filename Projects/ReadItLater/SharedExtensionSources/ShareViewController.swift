@@ -1,10 +1,9 @@
-import UIKit
+import Dependencies
 import MobileCoreServices
 import ReadItLaterStorage
-import Dependencies
+import UIKit
 
 class ShareViewController: UIViewController {
-  
   private var hasHandledShare = false
   
   @Dependency(\.readItLaterStorage) var storage
@@ -20,7 +19,8 @@ class ShareViewController: UIViewController {
 
   private func handleShare() {
     guard let item = extensionContext?.inputItems.first as? NSExtensionItem,
-          let attachments = item.attachments else {
+          let attachments = item.attachments
+    else {
       print("⚠️ 공유 항목 없음")
       finish()
       return
@@ -28,7 +28,7 @@ class ShareViewController: UIViewController {
 
     for provider in attachments {
       if provider.hasItemConformingToTypeIdentifier("public.url") {
-        provider.loadItem(forTypeIdentifier: "public.url", options: nil) { data, error in
+        provider.loadItem(forTypeIdentifier: "public.url", options: nil) { data, _ in
           if let url = data as? URL {
             print("🌐 공유된 URL:", url.absoluteString)
             self.saveSharedText(url.absoluteString)
@@ -41,7 +41,7 @@ class ShareViewController: UIViewController {
       }
 
       if provider.hasItemConformingToTypeIdentifier("public.text") {
-        provider.loadItem(forTypeIdentifier: "public.text", options: nil) { data, error in
+        provider.loadItem(forTypeIdentifier: "public.text", options: nil) { data, _ in
           if let text = data as? String {
             print("📝 공유된 텍스트:", text)
             self.saveSharedText(text)
@@ -72,7 +72,6 @@ class ShareViewController: UIViewController {
       self.finish()
     }
   }
-
 
   private func finish() {
     DispatchQueue.main.async {

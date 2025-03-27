@@ -27,7 +27,6 @@ struct MainListView: View {
       }
     }
   }
-  
 }
 
 #Preview {
