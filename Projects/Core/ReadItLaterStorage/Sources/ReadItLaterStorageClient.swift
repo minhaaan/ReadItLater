@@ -18,7 +18,7 @@ public struct ReadItLaterStorageClient {
 
 extension ReadItLaterStorageClient: DependencyKey {
   public static var liveValue: ReadItLaterStorageClient {
-    .fileStorage
+    .fileStorage()
   }
 }
 

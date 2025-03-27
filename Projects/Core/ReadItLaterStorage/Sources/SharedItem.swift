@@ -11,12 +11,12 @@ import Foundation
 public struct SharedItem: Codable, Equatable, Identifiable {
   public let id: UUID
   public let text: String
-  public let timestamp: Date
+  public let date: Date
   
-  public init(text: String, timestamp: Date = Date()) {
+  public init(text: String, date: Date = Date()) {
     self.id = UUID()
     self.text = text
-    self.timestamp = timestamp
+    self.date = date
   }
 }
 
