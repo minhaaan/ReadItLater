@@ -7,9 +7,9 @@ struct ReadItLaterApp: App {
     WindowGroup {
       MainView(
         store: Store(
-          initialState: MainFeature.State(),
+          initialState: Main.State(),
           reducer: {
-            MainFeature()
+            Main()
           }
         )
       )
