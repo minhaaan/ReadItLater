@@ -8,33 +8,66 @@
 import ComposableArchitecture
 import Perception
 import SwiftUI
+import ReadItLaterStorage
+import Dependencies
 
 @Reducer
 struct MainList {
   
   @ObservableState
   struct State: Equatable {
-    @Shared(.fileStorage(.texts)) var items: [String] = []
+    var items: [SharedItem] = []
   }
   
   enum Action {
+    case onAppear
+    case loaded([SharedItem])
     case insert(String)
     case delete(IndexSet)
   }
   
+  @Dependency(\.readItLaterStorage) var readItLaterStorage
+  
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
+      case .onAppear:
+        // 저장된 목록 로드
+        return .run { send in
+          do {
+            let sharedItems = try await readItLaterStorage.loadAll()
+            await send(.loaded(sharedItems))
+          } catch {
+            // 에러 처리
+          }
+        }
+        
+      case let .loaded(items):
+        state.items = items
+        return .none
+        
       case let .insert(text):
-        state.$items.withLock {
-          $0.insert(text, at: 0)
+        let item = SharedItem(text: text, timestamp: Date())
+        return .run { send in
+          do {
+            try await readItLaterStorage.save(item)
+            let updatedItems = try await readItLaterStorage.loadAll()
+            await send(.loaded(updatedItems))
+          } catch {
+            // 필요하면 에러 처리
+          }
         }
-        return .none
+        
       case let .delete(indexSet):
-        state.$items.withLock {
-          $0.remove(atOffsets: indexSet)
+        return .run { send in
+          do {
+            try await readItLaterStorage.removeAt(indexSet)
+            let updatedItems = try await readItLaterStorage.loadAll()
+            await send(.loaded(updatedItems))
+          } catch {
+            // 필요하면 에러 처리
+          }
         }
-        return .none
       }
     }
   }
@@ -46,12 +79,15 @@ struct MainListView: View {
   var body: some View {
     WithPerceptionTracking {
       List {
-        ForEach(store.items, id: \.self) { item in
-          LinkifiedTextView(text: item)
+        ForEach(store.items, id: \.id) { item in
+          LinkifiedTextView(text: item.text)
         }
         .onDelete { indexSet in
           store.send(.delete(indexSet))
         }
+      }
+      .onAppear {
+        store.send(.onAppear)
       }
     }
   }

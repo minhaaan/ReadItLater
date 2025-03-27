@@ -12,6 +12,7 @@ let project = Project(
       infoPlist: .default,
       sources: ["Sources/**"],
       dependencies: [
+        .external(name: "ComposableArchitecture"),
       ]
     ),
     .target(

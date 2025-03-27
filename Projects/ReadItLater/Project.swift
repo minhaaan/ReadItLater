@@ -20,7 +20,6 @@ let project = Project(
       sources: ["Sources/**"],
       resources: ["Resources/**"],
       dependencies: [
-        .external(name: "ComposableArchitecture"),
         .target(name: "SharedExtension"),
       ]
     ),
