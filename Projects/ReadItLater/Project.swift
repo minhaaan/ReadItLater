@@ -17,11 +17,11 @@ let project = Project(
           ],
         ]
       ),
-      sources: ["ReadItLater/Sources/**"],
-      resources: ["ReadItLater/Resources/**"],
+      sources: ["Sources/**"],
+      resources: ["Resources/**"],
       dependencies: [
         .external(name: "ComposableArchitecture"),
-        .target(name: "ReadItLaterSharedExtension"),
+        .target(name: "SharedExtension"),
       ]
     ),
     .target(
@@ -31,12 +31,12 @@ let project = Project(
       bundleId: "com.minan.ReadItLaterTests",
       deploymentTargets: .iOS("15.0"),
       infoPlist: .default,
-      sources: ["ReadItLater/Tests/**"],
+      sources: ["Tests/**"],
       resources: [],
       dependencies: [.target(name: "ReadItLater")]
     ),
     .target(
-      name: "ReadItLaterSharedExtension",
+      name: "SharedExtension",
       destinations: .iOS,
       product: .appExtension,
       bundleId: "com.minan.ReadItLater.sharedextension",
@@ -56,7 +56,7 @@ let project = Project(
           ]
         ]
       ),
-      sources: ["ReadItLater/SharedExtensionSources/**"],
+      sources: ["SharedExtensionSources/**"],
       resources: [],
       dependencies: []
     )
