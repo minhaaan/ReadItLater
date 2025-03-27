@@ -1,4 +1,5 @@
 import ProjectDescription
+import ProjectDescriptionHelpers
 
 let project = Project(
   name: "ReadItLater",
@@ -21,7 +22,11 @@ let project = Project(
       resources: ["Resources/**"],
       dependencies: [
         .target(name: "SharedExtension"),
-      ]
+      ],
+      settings: .settings(
+        base: ["DEVELOPMENT_TEAM": teamId],
+        defaultSettings: .recommended
+      )
     ),
     .target(
       name: "ReadItLaterTests",
@@ -32,7 +37,11 @@ let project = Project(
       infoPlist: .default,
       sources: ["Tests/**"],
       resources: [],
-      dependencies: [.target(name: "ReadItLater")]
+      dependencies: [.target(name: "ReadItLater")],
+      settings: .settings(
+        base: ["DEVELOPMENT_TEAM": teamId],
+        defaultSettings: .recommended
+      )
     ),
     .target(
       name: "SharedExtension",
@@ -62,7 +71,11 @@ let project = Project(
           target: "ReadItLaterStorage",
           path: .relativeToCurrentFile("../Core/ReadItLaterStorage")
         )
-      ]
+      ],
+      settings: .settings(
+        base: ["DEVELOPMENT_TEAM": teamId],
+        defaultSettings: .recommended
+      )
     )
   ]
 )

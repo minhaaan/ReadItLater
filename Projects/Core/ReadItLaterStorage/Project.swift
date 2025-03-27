@@ -1,4 +1,5 @@
 import ProjectDescription
+import ProjectDescriptionHelpers
 
 let project = Project(
   name: "ReadItLaterStorage",
@@ -13,7 +14,11 @@ let project = Project(
       sources: ["Sources/**"],
       dependencies: [
         .external(name: "ComposableArchitecture"),
-      ]
+      ],
+      settings: .settings(
+        base: ["DEVELOPMENT_TEAM": teamId],
+        defaultSettings: .recommended
+      )
     ),
     .target(
       name: "ReadItLaterStorageTests",
@@ -23,7 +28,11 @@ let project = Project(
       deploymentTargets: .iOS("15.0"),
       infoPlist: .default,
       sources: ["Tests/**"],
-      dependencies: [.target(name: "ReadItLaterStorage")]
+      dependencies: [.target(name: "ReadItLaterStorage")],
+      settings: .settings(
+        base: ["DEVELOPMENT_TEAM": teamId],
+        defaultSettings: .recommended
+      )
     )
   ]
 )
