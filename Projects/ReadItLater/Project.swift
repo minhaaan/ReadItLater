@@ -20,6 +20,7 @@ let project = Project(
       ),
       sources: ["Sources/**"],
       resources: ["Resources/**"],
+      entitlements: Entitlements.file(path: .relativeToManifest("ReadItLater.entitlements")),
       dependencies: [
         .target(name: "SharedExtension"),
       ],
@@ -66,6 +67,7 @@ let project = Project(
       ),
       sources: ["SharedExtensionSources/**"],
       resources: [],
+      entitlements: Entitlements.file(path: .relativeToManifest("SharedExtension.entitlements")),
       dependencies: [
         .project(
           target: "ReadItLaterStorage",
