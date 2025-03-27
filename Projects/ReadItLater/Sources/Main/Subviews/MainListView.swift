@@ -47,7 +47,7 @@ struct MainList {
         return .none
         
       case let .insert(text):
-        let item = SharedItem(text: text, timestamp: Date())
+        let item = SharedItem(text: text, date: Date())
         return .run { send in
           do {
             try await readItLaterStorage.save(item)
