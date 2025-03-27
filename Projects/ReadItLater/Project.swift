@@ -3,6 +3,7 @@ import ProjectDescriptionHelpers
 
 let project = Project(
   name: "ReadItLater",
+  options: .options(automaticSchemesOptions: .enabled(codeCoverageEnabled: true)),
   targets: [
     .target(
       name: "ReadItLater",
