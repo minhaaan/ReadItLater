@@ -8,7 +8,7 @@ struct MainInput {
   struct State: Equatable {
     var text = ""
     var writeButtonIsHidden = true
-    var writeButtonDisabled = false
+    var writeButtonDisabled = true
   }
 
   enum Action {
