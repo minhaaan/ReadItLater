@@ -37,9 +37,12 @@ extension ReadItLaterStorageClient {
 private extension ReadItLaterStorageClient {
   /// 저장할 파일의 위치 (Documents 디렉토리에 `sharedItems.json`)
   static var storageURL: URL = {
-    let fm = FileManager.default
-    let docs = fm.urls(for: .documentDirectory, in: .userDomainMask).first!
-    return docs.appendingPathComponent("sharedItems.json")
+    guard let containerURL = FileManager.default.containerURL(
+      forSecurityApplicationGroupIdentifier: Constants.appGroupIdentifier
+    ) else {
+      fatalError("App Group \(Constants.appGroupIdentifier) not found!")
+    }
+    return containerURL.appendingPathComponent("sharedItems.json")
   }()
   
   static func loadItems() throws -> [SharedItem] {
@@ -55,4 +58,5 @@ private extension ReadItLaterStorageClient {
     let data = try JSONEncoder().encode(items)
     try data.write(to: storageURL, options: .atomic)
   }
+  
 }
