@@ -1,3 +1,7 @@
 {
-  "sweetpad.build.xcodeWorkspacePath": "Workspace.xcworkspace"
+  "sweetpad.build.xcodeWorkspacePath": "Workspace.xcworkspace",
+  "[swift]": {
+    "editor.defaultFormatter": "sweetpad.sweetpad",
+    "editor.formatOnSave": true,
+  },
 }
