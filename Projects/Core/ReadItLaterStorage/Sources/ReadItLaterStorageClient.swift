@@ -20,6 +20,14 @@ extension ReadItLaterStorageClient: DependencyKey {
   public static var liveValue: ReadItLaterStorageClient {
     .fileStorage()
   }
+  
+  public static var testValue: ReadItLaterStorageClient {
+    .memoryStorage()
+  }
+  
+  public static var previewValue: ReadItLaterStorageClient {
+    .fileStorage()
+  }
 }
 
 extension DependencyValues {

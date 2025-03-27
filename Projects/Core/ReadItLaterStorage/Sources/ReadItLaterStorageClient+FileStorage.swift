@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - ReadItLaterStorageClient + FileStorage
 extension ReadItLaterStorageClient {
   static func fileStorage(at url: URL = Self.storageURL) -> Self {
     return ReadItLaterStorageClient(
