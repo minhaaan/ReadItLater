@@ -5,26 +5,25 @@
 //  Created by 최민한 on 3/28/25.
 //
 
-import Testing
 import ComposableArchitecture
 import ReadItLaterStorage
+import Testing
 
 @testable import ReadItLater
 
 @MainActor
 struct MainTests {
-  
   @Test func save_정상적() async throws {
     // GIVEN
     var items: [SharedItem] = []
     
     let store = TestStore(
       initialState: Main.State(input: .init(text: "1123213"))
-    ) { 
+    ) {
       Main()
-    } withDependencies: { 
+    } withDependencies: {
       $0.readItLaterStorage.loadAll = {
-        return items
+        items
       }
       $0.readItLaterStorage.save = { item in
         items.append(item)
@@ -44,6 +43,4 @@ struct MainTests {
       $0.list.items = items
     }
   }
-  
-  
 }

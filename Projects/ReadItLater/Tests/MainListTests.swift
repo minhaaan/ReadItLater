@@ -28,7 +28,7 @@ struct MainListTests {
     }
     
     // WHEN
-    await store.send(.onAppear)
+    await store.send(.reload)
     
     // THEN
     await store.receive(\.loaded) { state in

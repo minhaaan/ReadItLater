@@ -11,6 +11,7 @@ import SwiftUI
 
 struct MainListView: View {
   @Perception.Bindable var store: StoreOf<MainList>
+  @Environment(\.scenePhase) var scenePhase
   
   var body: some View {
     WithPerceptionTracking {
@@ -22,8 +23,10 @@ struct MainListView: View {
           store.send(.delete(indexSet))
         }
       }
-      .onAppear {
-        store.send(.onAppear)
+      .onChange(of: scenePhase) { newValue in
+        if newValue == .active {
+          store.send(.reload)
+        }
       }
     }
   }

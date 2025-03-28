@@ -11,7 +11,7 @@ struct MainList {
   }
   
   enum Action {
-    case onAppear
+    case reload
     case loaded([SharedItem])
     case insert(String)
     case delete(IndexSet)
@@ -22,7 +22,7 @@ struct MainList {
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-      case .onAppear:
+      case .reload:
         // 저장된 목록 로드
         return .run { send in
           do {
