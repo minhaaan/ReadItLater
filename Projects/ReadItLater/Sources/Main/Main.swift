@@ -16,6 +16,8 @@ struct Main {
     case save(String)
   }
   
+  @Dependency(\.readItLaterStorage) var readItLaterStorage
+  
   var body: some Reducer<State, Action> {
     Scope(state: \.input, action: \.input) {
       MainInput()
