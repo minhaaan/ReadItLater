@@ -5,14 +5,16 @@ import SwiftUI
 struct ReadItLaterApp: App {
   var body: some Scene {
     WindowGroup {
-      MainView(
-        store: Store(
-          initialState: Main.State(),
-          reducer: {
-            Main()
-          }
+      if TestContext.current == nil {
+        MainView(
+          store: Store(
+            initialState: Main.State(),
+            reducer: {
+              Main()
+            }
+          )
         )
-      )
+      }
     }
   }
 }
