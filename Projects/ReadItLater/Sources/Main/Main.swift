@@ -29,18 +29,11 @@ struct Main {
     Reduce { state, action in
       switch action {
       case .input(.save):
-        // 입력값 저장
-        let trimmed = state.input.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !trimmed.isEmpty {
-          return .send(.save(trimmed))
-        }
-        return .none
+        let userInputText = state.input.text
+        return .send(.save(userInputText))
         
       case let .save(text):
-        return .merge(
-          .send(.list(.insert(text))),
-          .send(.input(.textFieldChanged("")))
-        )
+        return .send(.list(.insert(text)))
         
       default:
         return .none

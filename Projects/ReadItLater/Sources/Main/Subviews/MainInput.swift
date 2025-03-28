@@ -28,7 +28,7 @@ struct MainInput {
         }
         return .none
       case .save:
-        return .none
+        return .send(.textFieldChanged(""))
       }
     }
   }

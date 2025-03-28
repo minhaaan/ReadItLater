@@ -14,23 +14,6 @@ import ReadItLaterStorage
 @MainActor
 struct MainTests {
   
-  @Test func 빈텍스트만_저장했을때() async throws {
-    // GIVEN
-    let onlySpaceText = " "
-    
-    let store = TestStore(
-      initialState: Main.State(input: MainInput.State(text: onlySpaceText))
-    ) { 
-      Main()
-    } 
-    
-    // WHEN
-    await store.send(.input(.save))
-    
-    // THEN
-    #expect(store.state.list.items.isEmpty)
-  }
-  
   @Test func save_정상적() async throws {
     // GIVEN
     var items: [SharedItem] = []
@@ -52,11 +35,11 @@ struct MainTests {
     await store.send(.input(.save))
     
     // THEN
-    await store.receive(\.save)
-    await store.receive(\.list.insert)
     await store.receive(\.input.textFieldChanged) {
       $0.input.text = ""
     }
+    await store.receive(\.save)
+    await store.receive(\.list.insert)
     await store.receive(\.list.loaded) {
       $0.list.items = items
     }
