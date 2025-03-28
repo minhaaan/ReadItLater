@@ -12,23 +12,25 @@ import Testing
 
 class FileStorageTests {
   /// 테스트를 위한 디렉토리 경로
-  static let testDirectory: URL = {
+  let testDirectory: URL = {
     let temp = FileManager.default.temporaryDirectory
     let dir = temp.appendingPathComponent("ReadItLaterTest", isDirectory: true)
     try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
     return dir.appendingPathComponent("sharedItems.json")
   }()
   
-  let storage = ReadItLaterStorageClient.fileStorage(at: testDirectory)
+  let storage: ReadItLaterStorageClient
   
   init() async throws {
-    // 테스트 전에 초기화
-    try await storage.clear()
+    ReadItLaterStorageClient.settings.storageURL = testDirectory
+    storage = ReadItLaterStorageClient.fileStorage
+    // 테스트 전에 파일을 지워줌
+    try await ReadItLaterStorageClient.fileStorage.clear()
   }
   
   deinit {
     // 테스트 후에 정리
-    try? FileManager.default.removeItem(at: Self.testDirectory)
+    try? FileManager.default.removeItem(at: testDirectory)
   }
   
   @Test func saveAndLoad() async throws {
