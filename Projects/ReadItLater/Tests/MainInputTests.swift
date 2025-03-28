@@ -5,10 +5,7 @@ import Testing
 @testable import ReadItLater
 
 final class MainInputTests {
-
-  init() async throws {
-
-  }
+  init() async throws {}
 
   @Test func textFieldChanged() async throws {
     // GIVEN
@@ -41,5 +38,4 @@ final class MainInputTests {
     // THEN
     #expect(currentState.writeButtonDisabled == false)
   }
-
 }
