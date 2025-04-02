@@ -28,26 +28,26 @@ class ShareViewController: UIViewController {
 
     for provider in attachments {
       if provider.hasItemConformingToTypeIdentifier("public.url") {
-        provider.loadItem(forTypeIdentifier: "public.url", options: nil) { data, _ in
+        provider.loadItem(forTypeIdentifier: "public.url", options: nil) { [weak self] data, _ in
           if let url = data as? URL {
             print("🌐 공유된 URL:", url.absoluteString)
-            self.saveSharedText(url.absoluteString)
+            self?.saveSharedText(url.absoluteString)
           } else {
             print("❌ URL 파싱 실패:", data ?? "nil")
-            self.finish()
+            self?.finish()
           }
         }
         return
       }
 
       if provider.hasItemConformingToTypeIdentifier("public.text") {
-        provider.loadItem(forTypeIdentifier: "public.text", options: nil) { data, _ in
+        provider.loadItem(forTypeIdentifier: "public.text", options: nil) { [weak self] data, _ in
           if let text = data as? String {
             print("📝 공유된 텍스트:", text)
-            self.saveSharedText(text)
+            self?.saveSharedText(text)
           } else {
             print("❌ 텍스트 파싱 실패:", data ?? "nil")
-            self.finish()
+            self?.finish()
           }
         }
         return
