@@ -3,7 +3,7 @@ import MobileCoreServices
 import ReadItLaterStorage
 import UIKit
 
-class ShareViewController: UIViewController {
+final class ShareViewController: UIViewController {
   private var hasHandledShare = false
   
   @Dependency(\.readItLaterStorage) var storage
